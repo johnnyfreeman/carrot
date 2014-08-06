@@ -1,6 +1,6 @@
 (function () {
   var isParentNode
-    , Caret;
+    , Carrot;
 
   isParentNode = function (child, possibleParent) {
     while (child) {
@@ -13,14 +13,14 @@
     return false;
   };
 
-  Caret = function(element) {
+  Carrot = function(element) {
     this.el = element;
     this.document = element.ownerDocument;
     this.window = this.document.defaultView || this.document.parentWindow;
     this.selection = this.window.getSelection() || this.document.selection;
   };
 
-  Caret.prototype.updateRange = function() {
+  Carrot.prototype.updateRange = function() {
     var range;
     try {
       range = this.selection.getRangeAt(0);
@@ -35,55 +35,55 @@
     return this.setRange(range);
   };
 
-  Caret.prototype.setRange = function(range) {
+  Carrot.prototype.setRange = function(range) {
     this.selection.removeAllRanges();
     this.selection.addRange(range);
     this.range = range;
     return this;
   };
 
-  Caret.prototype.createRange = function() {
+  Carrot.prototype.createRange = function() {
     return this.document.createRange();
   };
 
-  Caret.prototype.moveAfter = function(node) {
+  Carrot.prototype.moveAfter = function(node) {
     var range;
     range = this.createRange();
     range.setStartAfter(node);
     return this.setRange(range);
   };
 
-  Caret.prototype.moveBefore = function(node) {
+  Carrot.prototype.moveBefore = function(node) {
     var range;
     range = this.createRange();
     range.setStartBefore(node);
     return this.setRange(range);
   };
 
-  Caret.prototype.moveToBeginningOf = function(node) {
+  Carrot.prototype.moveToBeginningOf = function(node) {
     var range;
     range = this.createRange();
     range.setStart(this.el, 0);
     return this.setRange(range);
   };
 
-  Caret.prototype.moveToEndOf = function(node) {
+  Carrot.prototype.moveToEndOf = function(node) {
     var range;
     range = this.createRange();
     range.setStart(this.el, this.el.childNodes.length);
     return this.setRange(range);
   };
 
-  Caret.prototype.replace = function(contents) {
+  Carrot.prototype.replace = function(contents) {
     return this.clear().insert(contents);
   };
 
-  Caret.prototype.clear = function() {
+  Carrot.prototype.clear = function() {
     this.range.deleteContents();
     return this;
   };
 
-  Caret.prototype.insert = function(contents) {
+  Carrot.prototype.insert = function(contents) {
     if (typeof contents === "string") {
       contents = this.document.createTextNode(contents);
     }
@@ -92,7 +92,7 @@
     return contents;
   };
 
-  Caret.prototype.extend = function(i) {
+  Carrot.prototype.extend = function(i) {
     var range;
     range = this.createRange();
     range.setStart(this.range.startContainer, this.range.startOffset + i);
@@ -100,7 +100,7 @@
     return this.setRange(range);
   };
 
-  Caret.prototype.select = function(node, start, end) {
+  Carrot.prototype.select = function(node, start, end) {
     var range;
     range = this.createRange();
     range.setStart(node, 30);
@@ -108,9 +108,9 @@
     return this.setRange(range);
   };
 
-  Caret.prototype.focus = function() {
+  Carrot.prototype.focus = function() {
     return this.setRange(this.range.cloneRange());
   };
 
-  window.Caret = Caret;
+  window.Carrot = Carrot;
 })();
